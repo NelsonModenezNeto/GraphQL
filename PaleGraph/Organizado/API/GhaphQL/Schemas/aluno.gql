@@ -1,0 +1,17 @@
+type Aluno{
+    id: ID!
+    ra: Int!
+    nome: String!
+    email: String!
+}
+
+type Query{
+    alunos: [Aluno]
+    aluno(id: ID!): Aluno
+}
+
+type Mutation{
+    createAluno(ra: Int!, nome: String!, email: String!): Aluno!
+    updateAluno(id: ID!, ra: Int!, nome: String!, email: String!): Aluno!
+    deleteAluno(id: ID!): Aluno!
+}

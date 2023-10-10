@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@graphql-tools/load-files": "^7.0.0",
+    "apollo-server": "^3.12.1",
+    "graphql-tag": "^2.12.6",
+    "knex": "^3.0.1",
+    "mysql2": "^3.6.1"
+  }
+}
