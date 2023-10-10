@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5; 
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px; 
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc; 
+    border-radius: 3px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px; 
+    border-radius: 3px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para a tabela */
+  #alunos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto; 
+  }
+  
+  #alunos-table th, #alunos-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  #alunos-table th {
+    background-color: #f2f2f2;
+  }
+  
+  #alunos-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Estilos para a mensagem de erro/sucesso */
+  #mensagem {
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 3px;
+  }
+  
+  #mensagem.error {
+    color: red;
+    background-color: #ffb3b3; 
+  }
+  
+  /* Estilos para o botão de adicionar aluno */
+  #submit-aluno {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  #submit-aluno:hover {
+    background-color: #0056b3;
+  }
+  

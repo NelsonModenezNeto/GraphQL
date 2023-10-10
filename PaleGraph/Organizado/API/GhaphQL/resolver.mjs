@@ -5,8 +5,8 @@ const resolvers = {
     alunos: async () => {
       return knex("alunospale").select("*");
     },
-    aluno: async (_, { id }) => {
-      const aluno = await knex("alunospale").where("id", id).first();
+    aluno: async (_, { ra }) => {
+      const aluno = await knex("alunospale").where("ra", ra).first();
       return aluno;
     },
     professores: async () => {

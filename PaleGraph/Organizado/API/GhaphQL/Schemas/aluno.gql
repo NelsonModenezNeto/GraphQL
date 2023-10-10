@@ -7,7 +7,7 @@ type Aluno{
 
 type Query{
     alunos: [Aluno]
-    aluno(id: ID!): Aluno
+    aluno(ra: Int!): Aluno
 }
 
 type Mutation{

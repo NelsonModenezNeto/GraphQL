@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulário de Aluno</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>Formulário de Aluno</h1>
+  <form id="aluno-form">
+    <label for="ra">RA:</label>
+    <input type="number" id="ra" required><br><br>
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br><br>
+
+    <button type="button" id="submit-aluno">Adicionar Aluno</button>
+  </form>
+
+  <div id="mensagem"></div>
+
+  <h2>Consulta de Alunos</h2>
+  <form id="consulta-form">
+    <label for="consulta-ra">Consultar Aluno por RA:</label>
+    <input type="number" id="consulta-ra" required>
+    <button type="button" id="consulta-aluno">Consultar</button>
+  </form>
+
+  <table id="alunos-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>RA</th>
+        <th>Nome</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="alunos-list">
+    </tbody>
+  </table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById("aluno-form");
+      const consultaForm = document.getElementById("consulta-form");
+      const mensagemDiv = document.getElementById("mensagem");
+      const alunosTable = document.getElementById("alunos-table");
+      const alunosList = document.getElementById("alunos-list");
+
+      document.getElementById("submit-aluno").addEventListener("click", function() {
+        const ra = document.getElementById("ra").value;
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+
+        if (ra && nome && email) {
+          const query = `
+            mutation CreateAluno($ra: Int!, $nome: String!, $email: String!) {
+              createAluno(ra: $ra, nome: $nome, email: $email) {
+                id
+                ra
+                nome
+                email
+              }
+            }
+          `;
+
+          const variables = {
+            ra: parseInt(ra),
+            nome,
+            email,
+          };
+
+          axios.post("http://localhost:4000", {
+            query,
+            variables,
+          })
+          .then(response => {
+            const aluno = response.data.data.createAluno;
+            mensagemDiv.innerHTML = `Aluno ${aluno.nome} adicionado com sucesso!`;
+          })
+          .catch(error => {
+            mensagemDiv.innerHTML = `Erro ao adicionar aluno: ${error.message}`;
+          });
+        } else {
+          mensagemDiv.innerHTML = "Por favor, preencha todos os campos.";
+        }
+
+        // Limpa os campos após a submissão
+        document.getElementById("ra").value = "";
+        document.getElementById("nome").value = "";
+        document.getElementById("email").value = "";
+      });
+
+      // Consulta de aluno por RA
+      document.getElementById("consulta-aluno").addEventListener("click", function() {
+        const raConsulta = document.getElementById("consulta-ra").value;
+
+        if (raConsulta) {
+          axios.post("http://localhost:4000", {
+            query: `
+            query Alunos($ra: Int!) {
+              aluno(ra: $ra) {
+                id
+                ra
+                nome
+                email
+              }
+            }
+            `,
+            variables: {
+              ra: parseInt(raConsulta),
+            },
+          })
+          .then(response => {
+            const aluno = response.data.data.aluno;
+            if (aluno) {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${aluno.id}</td>
+                <td>${aluno.ra}</td>
+                <td>${aluno.nome}</td>
+                <td>${aluno.email}</td>
+              `;
+              alunosList.appendChild(row);
+            } else {
+              mensagemDiv.innerHTML = `Aluno com RA ${raConsulta} não encontrado.`;
+            }
+          })
+          .catch(error => {
+            mensagemDiv.innerHTML = `Erro na consulta de aluno: ${error.message}`;
+          });
+        } else {
+          mensagemDiv.innerHTML = "Por favor, preencha o campo RA para consultar.";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
