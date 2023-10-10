@@ -1,0 +1,7 @@
+Comandos 
+npm install apollo-server
+npm install knex
+npm install mysql2
+npm install graphql-tag
+npm install @graphql-tools/load-files
+node index.mjs
